@@ -50,7 +50,7 @@ async def check_nicknames(ctx, *args):
         embed = discord.Embed(title=":loudspeaker: 成员名检测", description="不错哦, 目前服务器中成员都有一个不错的名字", color=discord.Colour.green())
     else:
         embed = discord.Embed(title=":loudspeaker: 成员名检测", description=":x: 检测到了一些不合规的名字", color=discord.Colour.red())
-        embed.add_field(name="更改方式", value="1. 在右边的成员列表中找到自己 \n 2. 右键 \n 3. 在选单中选择更改昵称", inline=False)
+        embed.add_field(name="更改方式", value="1. 在右边的成员列表中找到自己 \n 2. 右键自己 \n 3. 在选单中选择更改昵称", inline=False)
         embed.add_field(name="格式", value="使用 `角色全名@服务器` 的格式, 姓和名开头均为大写的英文字符, 同时 `@` 为英文符号. \n 范例: `Good Name@Chocobo`\n\n 请尽快修改, 机器人自动清理时将会自动踢出不符合规则的成员.", inline=False)
 
         for badboy in badboys:
