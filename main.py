@@ -32,7 +32,7 @@ async def _check_name(ctx, *args):
 
 @bot.command(name="checknick")
 async def check_nicknames(ctx, *args):
-    guild = bot.get_guild(ctx.guild)
+    guild = ctx.guild
     if guild is None:
         return
 
