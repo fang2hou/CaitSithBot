@@ -1,0 +1,3 @@
+core:
+  command_prefix: "!"
+  discord_token: 123456789ABCDEFGHIJ
