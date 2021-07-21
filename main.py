@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.core import check
 import yaml
 
 import nickname
@@ -116,8 +117,28 @@ async def on_ready():
     print('Logged on as {0}!'.format(bot.user))
 
 
+async def check_user_nickname(member):
+    if member.bot:
+        return
+
+    name = member.nick
+    if name is None:
+        name = member.name
+    if not nickname.is_vaild_nickname(name):
+        embed = discord.Embed(title=":x: 成员名检测",
+                              description=":radio_button: 我检测到了你的名字不符合本服务器的规则哦~", color=discord.Colour.red())
+        embed.add_field(
+            name=":small_orange_diamond: 更改方式", value="1. 在服务器右侧的成员列表中找到自己 \n 2. 右键自己 \n 3. 在选单中选择更改昵称", inline=False)
+        embed.add_field(
+            name=":small_orange_diamond: 格式", value="使用 `角色全名@服务器` 的格式, 姓和名开头均为大写的英文字符, 同时 `@` 为英文符号. 范例: `Good Name@Chocobo`\n\n 使用命令 `!checkname Good Name@Chocobo` 这样可以测试是否符合规则.\n 请尽快修改, 机器人自动清理时将会自动踢出不符合规则的成员.", inline=False)
+
+        await member.send("我来自 FFXIV Mana 服务器! https://discord.gg/3G3VN3RZwv", embed=embed)
+
+
 @bot.event
 async def on_message(message):
+    if not message.channel.type == discord.ChannelType.private:
+        await check_user_nickname(message.author)
     await bot.process_commands(message)
 
 bot.run(bot_config["core"]["discord_token"])
