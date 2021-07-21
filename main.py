@@ -3,6 +3,7 @@ from discord.ext import commands
 import yaml
 
 import nickname
+import item_translate
 
 with open(r'config.yaml') as file:
     bot_config = yaml.load(file, Loader=yaml.FullLoader)
@@ -16,6 +17,44 @@ bot = commands.Bot(
 @bot.command()
 async def test(ctx):
     await ctx.send("test")
+
+
+@bot.command(name="is")
+async def _itemsearch(ctx, lang, *args):
+    item_name = " ".join(args)
+    (id, result) = item_translate.get_item_translation(lang, item_name)
+
+    desc = []
+    if result is not None:
+        if "cn" in result:
+            if result["cn"] != "":
+                desc.append(":flag_cn:  " + result["cn"])
+
+        if "ja" in result:
+            if result["ja"] != "":
+                desc.append(":flag_jp:  " + result["ja"])
+
+        if "en" in result:
+            if result["ja"] != "":
+                desc.append(":flag_us:  " + result["en"])
+
+        if "fr" in result:
+            if result["ja"] != "":
+                desc.append(":flag_fr:  " + result["fr"])
+
+        if "de" in result:
+            if result["de"] != "":
+                desc.append(":flag_de:  " + result["de"])
+
+    if len(desc) > 0:
+        embed = discord.Embed(title="物品检索 [" + id + "]", description="\n".join(
+            desc), color=discord.Colour.blue())
+    else:
+        embed = discord.Embed(
+            title="物品检索", description="没有找到该物品", color=discord.Colour.red())
+
+    embed.set_footer(text="数据信息: 国际服 5.58, 中国服 5.45")
+    await ctx.send(embed=embed)
 
 
 @bot.command(name="checkname")
