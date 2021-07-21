@@ -1,6 +1,6 @@
 import re
 
-regex = r"[A-Z][^ @]* [A-Z][^ @]*@(Anima|Asura|Belias|Chocobo|Hades|Ixion|Mandragora|Masamune|Pandaemonium|Shinryu|Titan)"
+regex = r"^[A-Z][^ @]* [A-Z][^ @]*@(Anima|Asura|Belias|Chocobo|Hades|Ixion|Mandragora|Masamune|Pandaemonium|Shinryu|Titan)$"
 checker = re.compile(regex)
 
 def is_vaild_nickname(nickname) -> bool:
