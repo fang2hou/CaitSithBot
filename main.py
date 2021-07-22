@@ -22,11 +22,12 @@ async def test(ctx):
 
 @bot.command(name="is")
 async def _itemsearch(ctx, lang, *args):
+    id = 0
     item_name = " ".join(args)
-    (id, result) = item_translate.get_item_translation(lang, item_name)
-
+    search = item_translate.get_item_translation(lang, item_name)
     desc = []
-    if result is not None:
+    if search is not None:
+        (id, result) = search
         if "cn" in result:
             if result["cn"] != "":
                 desc.append(":flag_cn:  " + result["cn"])
