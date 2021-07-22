@@ -135,10 +135,17 @@ async def check_user_nickname(member):
         await member.send("我来自 FFXIV Mana 服务器! https://discord.gg/3G3VN3RZwv", embed=embed)
 
 
+support_channels = [
+    864026276783063092, # moderator-only
+    864429096455634954, # 支持
+    867239258123927582 # 服务台
+]
+
 @bot.event
 async def on_message(message):
     if not message.channel.type == discord.ChannelType.private:
-        await check_user_nickname(message.author)
+        if not message.channel.id in support_channels:
+            await check_user_nickname(message.author)
     await bot.process_commands(message)
 
 bot.run(bot_config["core"]["discord_token"])
