@@ -19,7 +19,6 @@ bot = commands.Bot(
 async def test(ctx):
     await ctx.send("test")
 
-
 @bot.command(name="is")
 async def _itemsearch(ctx, lang, *args):
     id = 0
@@ -30,23 +29,33 @@ async def _itemsearch(ctx, lang, *args):
         (id, result) = search
         if "cn" in result:
             if result["cn"] != "":
-                desc.append(":flag_cn:  " + result["cn"])
+                item_name = result["cn"]
+                link = item_translate.get_database_link("cn", item_name)
+                desc.append(f":flag_cn: [数据库]({link}) | {item_name}")
 
         if "ja" in result:
             if result["ja"] != "":
-                desc.append(":flag_jp:  " + result["ja"])
+                item_name = result["ja"]
+                link = item_translate.get_database_link("jp", item_name)
+                desc.append(f":flag_jp: [数据库]({link}) | {item_name}")
 
         if "en" in result:
-            if result["ja"] != "":
-                desc.append(":flag_us:  " + result["en"])
+            if result["en"] != "":
+                item_name = result["en"]
+                link = item_translate.get_database_link("na", item_name)
+                desc.append(f":flag_us: [数据库]({link}) | {item_name}")
 
         if "fr" in result:
-            if result["ja"] != "":
-                desc.append(":flag_fr:  " + result["fr"])
+            if result["fr"] != "":
+                item_name = result["fr"]
+                link = item_translate.get_database_link("fr", item_name)
+                desc.append(f":flag_fr: [数据库]({link}) | {item_name}")
 
         if "de" in result:
             if result["de"] != "":
-                desc.append(":flag_de:  " + result["de"])
+                item_name = result["de"]
+                link = item_translate.get_database_link("de", item_name)
+                desc.append(f":flag_de: [数据库]({link}) | {item_name}")
 
     if len(desc) > 0:
         embed = discord.Embed(title="物品检索 [" + id + "]", description="\n".join(
