@@ -136,7 +136,6 @@ async def check_user_nickname(member):
 
 
 support_channels = [
-    864026276783063092, # moderator-only
     864429096455634954, # 支持
     867239258123927582 # 服务台
 ]
