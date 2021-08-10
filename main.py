@@ -41,33 +41,33 @@ async def _itemsearch(ctx, lang, *args):
         (id, result) = search
         if "cn" in result:
             if result["cn"] != "":
-                item_name = result["cn"]
-                link = item_translate.get_database_link("cn", item_name)
-                desc.append(f":flag_cn: [数据库]({link}) | {item_name}")
+                locale_item_name = result["cn"]
+                link = item_translate.get_database_link("cn", locale_item_name)
+                desc.append(f":flag_cn: [数据库]({link}) | {locale_item_name}")
 
         if "ja" in result:
             if result["ja"] != "":
-                item_name = result["ja"]
-                link = item_translate.get_database_link("jp", item_name)
-                desc.append(f":flag_jp: [数据库]({link}) | {item_name}")
+                locale_item_name = result["ja"]
+                link = item_translate.get_database_link("jp", locale_item_name)
+                desc.append(f":flag_jp: [数据库]({link}) | {locale_item_name}")
 
         if "en" in result:
             if result["en"] != "":
-                item_name = result["en"]
-                link = item_translate.get_database_link("na", item_name)
-                desc.append(f":flag_us: [数据库]({link}) | {item_name}")
+                locale_item_name = result["en"]
+                link = item_translate.get_database_link("na", locale_item_name)
+                desc.append(f":flag_us: [数据库]({link}) | {locale_item_name}")
 
         if "fr" in result:
             if result["fr"] != "":
-                item_name = result["fr"]
-                link = item_translate.get_database_link("fr", item_name)
-                desc.append(f":flag_fr: [数据库]({link}) | {item_name}")
+                locale_item_name = result["fr"]
+                link = item_translate.get_database_link("fr", locale_item_name)
+                desc.append(f":flag_fr: [数据库]({link}) | {locale_item_name}")
 
         if "de" in result:
             if result["de"] != "":
-                item_name = result["de"]
-                link = item_translate.get_database_link("de", item_name)
-                desc.append(f":flag_de: [数据库]({link}) | {item_name}")
+                locale_item_name = result["de"]
+                link = item_translate.get_database_link("de", locale_item_name)
+                desc.append(f":flag_de: [数据库]({link}) | {locale_item_name}")
 
     if len(desc) > 0:
         embed = discord.Embed(title=f"[物品检索] {item_name} / 匹配到ID: {id}", description="\n".join(
@@ -83,7 +83,7 @@ async def _itemsearch(ctx, lang, *args):
 @bot.command(name="checkname")
 async def _check_name(ctx, *args):
     if len(args) == 0:
-        message = ":question: 名字输入错误, 格式为 `!checkname Test Name@Anima`"
+        message = ":question: 名字输入错误, 格式为 `!checkname Test Name@Anima`!\n> 如果发现总是@到别人, 建议采用 \` 符号进行包裹."
     else:
         name = " ".join(args)
         name = name.replace('`', '')
