@@ -91,7 +91,7 @@ async def _check_name(ctx, *args):
         if result:
             message = ":white_check_mark: 恭喜您, 该名字符合条件."
         else:
-            message = ":question: 这名字看上去不太对哦, 请再次确认格式为 `游戏角色名@服务器名`!"
+            message = ":question: 这名字看上去不太对哦, 请再次确认格式为 `游戏角色名@服务器名`!\n> 如果发现总是@到别人, 建议采用 \` 符号进行包裹."
 
     await ctx.send(message)
 
