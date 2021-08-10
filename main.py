@@ -19,10 +19,22 @@ bot = commands.Bot(
 async def test(ctx):
     await ctx.send("test")
 
+language_alias = {
+    "us": "en",
+    "jp": "ja",
+    "zh": "cn"
+}
+
+
 @bot.command(name="is")
 async def _itemsearch(ctx, lang, *args):
+
+    if lang in language_alias:
+        lang = language_alias[lang]
+
     id = 0
     item_name = " ".join(args)
+
     search = item_translate.get_item_translation(lang, item_name)
     desc = []
     if search is not None:
@@ -58,13 +70,13 @@ async def _itemsearch(ctx, lang, *args):
                 desc.append(f":flag_de: [数据库]({link}) | {item_name}")
 
     if len(desc) > 0:
-        embed = discord.Embed(title="物品检索 [" + id + "]", description="\n".join(
+        embed = discord.Embed(title=f"[物品检索] {item_name} / 匹配到ID: {id}", description="\n".join(
             desc), color=discord.Colour.blue())
     else:
         embed = discord.Embed(
             title="物品检索", description="没有找到该物品", color=discord.Colour.red())
 
-    embed.set_footer(text="数据信息: 国际服 5.58, 中国服 5.45")
+    embed.set_footer(text="数据信息: 国际服 5.58, 中国服 5.5")
     await ctx.send(embed=embed)
 
 
@@ -146,9 +158,10 @@ async def check_user_nickname(member):
 
 
 support_channels = [
-    864429096455634954, # 支持
-    867239258123927582 # 服务台
+    864429096455634954,  # 支持
+    867239258123927582  # 服务台
 ]
+
 
 @bot.event
 async def on_message(message):
