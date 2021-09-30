@@ -76,7 +76,7 @@ async def _itemsearch(ctx, lang, *args):
         embed = discord.Embed(
             title="物品检索", description="没有找到该物品", color=discord.Colour.red())
 
-    embed.set_footer(text="数据信息: 国际服 5.58, 中国服 5.5")
+    embed.set_footer(text="数据信息: 国际服 5.58, 中国服 5.55")
     await ctx.send(embed=embed)
 
 
