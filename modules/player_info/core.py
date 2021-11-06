@@ -100,6 +100,8 @@ def get_class_level_string(class_level_list, ids):
                 _level = f"**{level}**"
             else:
                 _level = f"{level}"
+            if len(_level) == 1:
+                _level += " "
             result.append(emoji + " " + _level)
 
     _result = ""
