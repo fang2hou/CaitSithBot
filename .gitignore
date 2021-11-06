@@ -118,3 +118,5 @@ config.yaml
 config.yml
 config.xml
 config.toml
+
+.idea
