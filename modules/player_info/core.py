@@ -98,6 +98,8 @@ def get_class_level_string(class_level_list, ids):
         if id in class_level_list:
             if level == 80 or level == 70 and id == 36:
                 _level = " **{:02d}**".format(level)
+            elif level == 0:
+                _level = " --"
             else:
                 _level = " {:2d}".format(level)
 
