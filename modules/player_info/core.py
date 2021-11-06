@@ -97,11 +97,11 @@ def get_class_level_string(class_level_list, ids):
         level = class_level_list[id]
         if id in class_level_list:
             if level == 80 or level == 70 and id == 36:
-                _level = "**{:02d}**".format(level)
+                _level = " **{:02d}**".format(level)
             else:
-                _level = "{:02d}".format(level)
+                _level = " {:2d}".format(level)
 
-            result.append(emoji + " " + _level)
+            result.append(emoji + _level)
 
     _result = ""
     for i in range(len(result)):
