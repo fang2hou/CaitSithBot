@@ -97,12 +97,9 @@ def get_class_level_string(class_level_list, ids):
         level = class_level_list[id]
         if id in class_level_list:
             if level == 80 or level == 70 and id == 36:
-                _level = f"**{level}**"
+                _level = "**{:02d}**".format(level)
             else:
-                _level = f"{level}"
-
-            if level < 10:
-                _level += " "
+                _level = "{:02d}".format(level)
 
             result.append(emoji + " " + _level)
 
@@ -175,7 +172,7 @@ async def player_info(ctx, *args):
             "Level"
         ]
         if not eureka_level or eureka_level == 0:
-            eureka_level = "还未前往禁地"
+            eureka_level = "未前往禁地"
         else:
             eureka_level = "等级 " + str(eureka_level)
 
