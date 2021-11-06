@@ -170,18 +170,24 @@ async def player_info(ctx, *args):
             value=lodestone_info["Character"]["FreeCompanyName"],
             inline=True,
         )
-        embed.add_field(
-            name="优雷卡",
-            value="等级 "
-            + str(lodestone_info["Character"]["ClassJobsElemental"]["Level"]),
-            inline=True,
-        )
-        embed.add_field(
-            name="博兹雅",
-            value="等级 "
-            + str(lodestone_info["Character"]["ClassJobsBozjan"]["Level"]),
-            inline=True,
-        )
+
+        eureka_level = lodestone_info["Character"]["ClassJobsElemental"][
+            "Level"
+        ]
+        if not eureka_level or eureka_level == 0:
+            eureka_level = "还未前往禁地"
+        else:
+            eureka_level = "等级 " + str(eureka_level)
+
+        embed.add_field(name="优雷卡", value=eureka_level, inline=True)
+
+        bozjan_level = lodestone_info["Character"]["ClassJobsBozjan"]["Level"]
+        if not bozjan_level or bozjan_level == 0:
+            bozjan_level = "未参加义军"
+        else:
+            bozjan_level = "等级 " + str(bozjan_level)
+
+        embed.add_field(name="博兹雅", value=bozjan_level, inline=True)
 
         class_level_list = {}
         for class_info in lodestone_info["Character"]["ClassJobs"]:
