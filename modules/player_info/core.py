@@ -96,14 +96,12 @@ def get_class_level_string(class_level_list, ids):
             id = 26
         level = class_level_list[id]
         if id in class_level_list:
-            if level == 80 or level == 70 and id == 36:
-                _level = " **{:02d}**".format(level)
-            elif level == 0:
-                _level = " --"
+            if level == 0:
+                result.append("{} --".format(emoji))
+            elif level == 80 or level == 70 and id == 36:
+                result.append("{} **{:2d}**".format(emoji, level))
             else:
-                _level = " {:2d}".format(level)
-
-            result.append(emoji + _level)
+                result.append("{} {:2d}".format(emoji, level))
 
     _result = ""
     for i in range(len(result)):
@@ -217,6 +215,10 @@ async def player_info(ctx, *args):
             name="魔法",
             value=get_class_level_string(class_level_list, [7, 26, 35, 36]),
             inline=True,
+        )
+    else:
+        embed.add_field(
+            name=":warning: 获取超时", value="Lodestone 抽风啦, 请稍后再试!", inline=False
         )
 
     if player_info["hidden"]:
