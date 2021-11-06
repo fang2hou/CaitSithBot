@@ -6,6 +6,7 @@ import yaml
 import utils
 import utils.message
 
+import modules.player_info as player_info
 import modules.item_search as item_search
 import modules.name_check as name_check
 
@@ -19,6 +20,17 @@ intents.members = True
 bot = commands.Bot(
     command_prefix=bot_config["core"]["command_prefix"], intents=intents
 )
+
+player_info.init(bot_config["player_info"])
+
+# 玩家资料
+@bot.command(name="playerinfo", aliases=["pi", "player_info"])
+async def _player_info(ctx, *args):
+    if ctx.channel.id in bot_config["player_info"]["channel_blacklist"]:
+        await ctx.send("请前往 <#867239258123927582> 频道进行该命令的使用.")
+        return
+    await player_info.player_info(ctx, *args)
+
 
 # 物品搜索
 @bot.command(
@@ -44,7 +56,9 @@ async def _check_all_member_names(ctx):
     if utils.is_admin(ctx.author):
         await name_check.check_all_member_names(ctx)
     else:
-        await utils.message.send_error_message(ctx, "全员名字检查", "抱歉, 您没有权限使用此命令.\n请联系机器人开发管理员.")
+        await utils.message.send_error_message(
+            ctx, "全员名字检查", "抱歉, 您没有权限使用此命令.\n请联系机器人开发管理员."
+        )
 
 
 @bot.event
