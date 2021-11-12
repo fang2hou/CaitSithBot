@@ -18,7 +18,11 @@ utils.init(bot_config)
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(
-    command_prefix=bot_config["core"]["command_prefix"], intents=intents
+    command_prefix=bot_config["core"]["command_prefix"],
+    intents=intents,
+    activity=discord.Activity(
+        name=bot_config["core"]["watching"], type=discord.ActivityType.watching
+    ),
 )
 
 player_info.init(bot_config["player_info"])
