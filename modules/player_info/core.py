@@ -97,7 +97,7 @@ def get_class_level_string(class_level_list, ids):
         level = class_level_list[id]
         if id in class_level_list:
             if level == 0:
-                result.append("{} --".format(emoji))
+                result.append("{} <:ffxiv_status_beginner:864599133268606987>".format(emoji))
             elif level == 80 or level == 70 and id == 36:
                 result.append("{} **{:2d}**".format(emoji, level))
             else:
