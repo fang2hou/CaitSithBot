@@ -28,7 +28,9 @@ async def fetch(query: dict):
     }
 
     async with aiohttp.ClientSession() as session:
-        async with session.post(__FFLOGS_API_URL, data=payload, headers=headers) as resp:
+        async with session.post(
+            __FFLOGS_API_URL, data=payload, headers=headers
+        ) as resp:
             if not resp.status == 200:
                 print("[fflogs_api] Error: timeout")
             else:
@@ -67,7 +69,8 @@ async def player_info(player_name: str, server: str, region: str = "JP"):
     return result
 
 
-BOSSES = {73: "e9s", 74: "e10s", 75: "e11s", 76: "e12s1", 77: "e12s2"}
+SHB_BOSSES = {73: "e9s", 74: "e10s", 75: "e11s", 76: "e12s1", 77: "e12s2"}
+EW_BOSSES = {78: "p1s", 79: "p2s", 80: "p3s", 81: "p4s"}
 
 
 async def shb_rankings(player_name: str, server: str, region: str = "JP"):
@@ -109,7 +112,53 @@ async def shb_rankings(player_name: str, server: str, region: str = "JP"):
 
             for ranking in data["rankings"]:
                 if ranking["totalKills"] > 0:
-                    boss_name = BOSSES[ranking["encounter"]["id"]]
+                    boss_name = SHB_BOSSES[ranking["encounter"]["id"]]
+                    if (
+                        boss_name not in result
+                        or result[boss_name]["best"] < ranking["rankPercent"]
+                    ):
+                        result[boss_name] = {
+                            "best": ranking["rankPercent"],
+                            "patch": patch,
+                        }
+
+    return result
+
+
+async def ew_rankings(player_name: str, server: str, region: str = "JP"):
+    result = {}
+
+    patch_codes = {
+        "6.0": 1,
+    }
+
+    # Asphodelos (p1s - p4s): 44
+    for patch in patch_codes:
+        query = """
+                {
+                    characterData {
+                        character(name: "%s", serverSlug: "%s", serverRegion: "%s") {
+                            zoneRankings(zoneID: 44, partition: %d, difficulty: 101, metric: rdps)
+                        }
+                    }
+                }
+                """ % (
+            player_name,
+            server,
+            region,
+            patch_codes[patch],
+        )
+
+        fflogs_data = await fetch(query)
+
+        if fflogs_data is None:
+            return None
+        else:
+            data = fflogs_data["characterData"]["character"]["zoneRankings"]
+
+            for ranking in data["rankings"]:
+                if ranking["totalKills"] > 0:
+                    boss_name = EW_BOSSES[ranking["encounter"]["id"]]
                     if (
                         boss_name not in result
                         or result[boss_name]["best"] < ranking["rankPercent"]

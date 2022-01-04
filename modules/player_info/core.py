@@ -1,4 +1,3 @@
-from os import name
 from . import fflogs
 from . import xivapi
 
@@ -97,7 +96,11 @@ def get_class_level_string(class_level_list, ids):
         level = class_level_list[id]
         if id in class_level_list:
             if level == 0:
-                result.append("{} <:ffxiv_status_beginner:864599133268606987>".format(emoji))
+                result.append(
+                    "{} <:ffxiv_status_beginner:864599133268606987>".format(
+                        emoji
+                    )
+                )
             elif level == 80 or level == 70 and id == 36:
                 result.append("{} **{:2d}**".format(emoji, level))
             else:
@@ -147,6 +150,7 @@ async def player_info(ctx, *args):
             attempt_times += 1
 
     shb_rankings = await fflogs.shb_rankings(character_name, server)
+    ew_rankings = await fflogs.ew_rankings(character_name, server)
 
     embed_data = {}
     embed_data["title"] = "<:ffxiv_icon_info:864598480730325002> 玩家信息"
@@ -228,17 +232,35 @@ async def player_info(ctx, *args):
             inline=True,
         )
     else:
-        fflog_url_base = "https://www.fflogs.com/character/id/{}".format(
+
+        fflog_url_base_ew = "https://www.fflogs.com/character/id/{}".format(
             player_info["id"]
         )
 
         embed.add_field(
-            name="<:ffxiv_icon_info:864598480730325002> FFLogs 亮眼表现",
-            value="[5.4]({})".format(fflog_url_base + "#partition=1")
+            name="<:ffxiv_icon_info:864598480730325002> FFLogs 亮眼表现 (6.0)",
+            value="[6.0]({})".format(fflog_url_base_ew),
+            inline=False,
+        )
+
+        generate_line_of_ranking(embed, ew_rankings, "p1s", "P1S")
+        generate_line_of_ranking(embed, ew_rankings, "p2s", "P2S")
+        generate_line_of_ranking(embed, ew_rankings, "p3s", "P3S")
+        generate_line_of_ranking(embed, ew_rankings, "p4s", "P4S")
+
+        fflog_url_base_shb = (
+            "https://www.fflogs.com/character/id/{}?zone=38".format(
+                player_info["id"]
+            )
+        )
+
+        embed.add_field(
+            name="<:ffxiv_icon_info:864598480730325002> FFLogs 亮眼表现 (5.0)",
+            value="[5.4]({})".format(fflog_url_base_shb + "#partition=1")
             + " | "
-            + "[5.5]({})".format(fflog_url_base + "#partition=7")
+            + "[5.5]({})".format(fflog_url_base_shb + "#partition=7")
             + " | "
-            + "[5.55]({})".format(fflog_url_base + "#partition=13"),
+            + "[5.55]({})".format(fflog_url_base_shb + "#partition=13"),
             inline=False,
         )
 
