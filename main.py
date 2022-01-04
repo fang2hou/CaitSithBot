@@ -10,7 +10,7 @@ import modules.player_info as player_info
 import modules.item_search as item_search
 import modules.name_check as name_check
 
-with open(r"config.yaml") as file:
+with open(r"config.yaml", encoding="utf8") as file:
     bot_config = yaml.load(file, Loader=yaml.FullLoader)
 
 utils.init(bot_config)
@@ -26,6 +26,7 @@ bot = commands.Bot(
 )
 
 player_info.init(bot_config["player_info"])
+
 
 # 玩家资料
 @bot.command(name="playerinfo", aliases=["pi", "player_info"])
