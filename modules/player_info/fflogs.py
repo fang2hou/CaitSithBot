@@ -70,7 +70,7 @@ async def player_info(player_name: str, server: str, region: str = "JP"):
 
 
 SHB_BOSSES = {73: "e9s", 74: "e10s", 75: "e11s", 76: "e12s1", 77: "e12s2"}
-EW_BOSSES = {78: "p1s", 79: "p2s", 80: "p3s", 81: "p4s"}
+EW_BOSSES = {78: "p1s", 79: "p2s", 80: "p3s", 81: "p4s1", 82: "p4s2"}
 
 
 async def shb_rankings(player_name: str, server: str, region: str = "JP"):

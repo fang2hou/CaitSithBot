@@ -246,7 +246,8 @@ async def player_info(ctx, *args):
         generate_line_of_ranking(embed, ew_rankings, "p1s", "P1S")
         generate_line_of_ranking(embed, ew_rankings, "p2s", "P2S")
         generate_line_of_ranking(embed, ew_rankings, "p3s", "P3S")
-        generate_line_of_ranking(embed, ew_rankings, "p4s", "P4S")
+        generate_line_of_ranking(embed, ew_rankings, "p4s1", "P4S门神")
+        generate_line_of_ranking(embed, ew_rankings, "p4s2", "P4S本体")
 
         fflog_url_base_shb = (
             "https://www.fflogs.com/character/id/{}?zone=38".format(
