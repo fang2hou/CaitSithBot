@@ -5,6 +5,10 @@ import re
 import discord
 
 
+__JOB_LEVEL_COUNT = 90
+__BLUE_MAGE_LEVEL_COUNT = 70
+
+
 def init(config):
     fflogs.init(config["fflogs_token"], config["time_out"])
     xivapi.init(config["xivapi_token"], config["time_out"])
@@ -101,7 +105,11 @@ def get_class_level_string(class_level_list, ids):
                         emoji
                     )
                 )
-            elif level == 80 or level == 70 and id == 36:
+            elif (
+                level == __JOB_LEVEL_COUNT
+                or level == __BLUE_MAGE_LEVEL_COUNT
+                and id == 36
+            ):
                 result.append("{} **{:2d}**".format(emoji, level))
             else:
                 result.append("{} {:2d}".format(emoji, level))
