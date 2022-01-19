@@ -6,7 +6,7 @@ import discord
 from discord.ext.commands import Context
 
 __GLOBAL_VERSION = "6.05"
-__CN_VERSION = "5.57"
+__CN_VERSION = "5.58"
 
 language_alias = {"us": "en", "jp": "ja", "zh": "cn"}
 
