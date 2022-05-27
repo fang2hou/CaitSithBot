@@ -5,8 +5,8 @@ import urllib.parse
 import discord
 from discord.ext.commands import Context
 
-__GLOBAL_VERSION = "6.05"
-__CN_VERSION = "5.58"
+__GLOBAL_VERSION = "6.11a"
+__CN_VERSION = "6.05"
 
 language_alias = {"us": "en", "jp": "ja", "zh": "cn"}
 
