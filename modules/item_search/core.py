@@ -5,8 +5,8 @@ import urllib.parse
 import discord
 from discord.ext.commands import Context
 
-__GLOBAL_VERSION = "6.11a"
-__CN_VERSION = "6.05"
+__GLOBAL_VERSION = "6.2"
+__CN_VERSION = "6.1"
 
 language_alias = {"us": "en", "jp": "ja", "zh": "cn"}
 
@@ -91,5 +91,5 @@ async def run(ctx: Context, lang: str, *args: tuple):
             title="物品检索", description="没有找到该物品", color=discord.Colour.red()
         )
 
-    embed.set_footer(text=f"数据信息: 国际服 {__GLOBAL_VERSION}, 中国服 {__CN_VERSION}")
+    embed.set_footer(text=f"数据库版本: 国际服 {__GLOBAL_VERSION}, 中国服 {__CN_VERSION}")
     await ctx.send(embed=embed)
